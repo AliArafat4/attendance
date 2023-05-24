@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "293790731526",
+    "project_id": "attendance-e1db3",
+    "storage_bucket": "attendance-e1db3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293790731526:android:0f8da073402989066de287",
+        "android_client_info": {
+          "package_name": "com.attendance.attendance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "293790731526-ee1ajsefuk744qcga3t7sel6omaqotcu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRR_ZGFlF9DoNkw-z6cuV0WDFKJmNRyok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293790731526-ee1ajsefuk744qcga3t7sel6omaqotcu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
