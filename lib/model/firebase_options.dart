@@ -44,7 +44,7 @@ class DefaultFirebaseOptions {
     storageBucket: 'attendance-e1db3.appspot.com',
   );
 
-  //TODO: configure
+  //TODO: configure/fix
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyA6ihDOisNiME3Kurcg9mJqmni7K09PbLU',
     appId: '1:138777932173:ios:2d5717f12e5970f4fc8dc4',

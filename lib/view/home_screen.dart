@@ -1,3 +1,6 @@
+import 'package:attendance/view/attendance.dart';
+import 'package:attendance/view/members.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../model/file_operations.dart';
@@ -11,9 +14,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var _counter;
   UserPermissions permissions = UserPermissions();
   FileOperations excelFiles = ExcelFiles();
+  int? groupValue = 0;
+  double textSize = 18;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: ListView(
           children: [
             SizedBox(
-              height: 60,
+              height: 100,
               child: DrawerHeader(
                 child: Column(
                   children: [
@@ -52,27 +57,45 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text("Home"),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(10),
+              child: CupertinoSlidingSegmentedControl<int>(
+                backgroundColor: CupertinoColors.white,
+                thumbColor: CupertinoColors.systemYellow,
+                padding: const EdgeInsets.all(8),
+                groupValue: groupValue,
+                children: {
+                  0: Text(
+                    "Attendance",
+                    style: TextStyle(fontSize: textSize, color: Colors.black),
+                  ),
+                  1: Text(
+                    "Members",
+                    style: TextStyle(fontSize: textSize, color: Colors.black),
+                  ),
+                  2: Text(
+                    "Statistics",
+                    style: TextStyle(fontSize: textSize, color: Colors.black),
+                  ),
+                },
+                onValueChanged: (value) {
+                  setState(() {
+                    groupValue = value;
+                  });
+                },
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            (groupValue == 0) ? Attendance() : const SizedBox(),
+            (groupValue == 1) ? Members() : const SizedBox(),
+            (groupValue == 2) ? Text("$groupValue") : const SizedBox()
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await checkPermission();
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
