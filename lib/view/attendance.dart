@@ -12,16 +12,25 @@ class _AttendanceState extends State<Attendance> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const Center(
+          child: SizedBox(
+            height: 150,
+            width: 150,
+            child: Placeholder(),
+            // Image.asset(
+            //   "assets/images/attendance-icon-5.jpg",
+            // )
+          ),
+        ),
         Container(
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-          height: 150,
           width: 200,
           child: TextField(
-            keyboardType: TextInputType.text,
+            keyboardType: TextInputType.number,
             textAlignVertical: TextAlignVertical.center,
             textAlign: TextAlign.center,
             decoration: InputDecoration(
-              hintText: 'S.N / Name',
+              hintText: 'S.N',
               alignLabelWithHint: true,
               floatingLabelAlignment: FloatingLabelAlignment.center,
               filled: true,

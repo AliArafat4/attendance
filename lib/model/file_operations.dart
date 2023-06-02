@@ -44,8 +44,8 @@ class ExcelFiles implements FileOperations {
         }
       }
       print(rowDetail);
-      // final contents = await file.readAsString();
-      // return contents;
+      final contents = await file.readAsString();
+      return contents;
     } catch (e) {
       // If encountering an error, return 0
       print(e);

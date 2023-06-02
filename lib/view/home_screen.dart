@@ -62,6 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
+              width: double.infinity,
+              height: 65,
               alignment: Alignment.center,
               padding: const EdgeInsets.all(10),
               child: CupertinoSlidingSegmentedControl<int>(
@@ -90,15 +92,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             ),
-            (groupValue == 0) ? Attendance() : const SizedBox(),
-            (groupValue == 1) ? Members() : const SizedBox(),
-            (groupValue == 2) ? Text("$groupValue") : const SizedBox()
+            (groupValue == 0)
+                ? const Attendance()
+                : const SizedBox(height: 0, width: 0),
+            (groupValue == 1)
+                ? const Members()
+                : const SizedBox(height: 0, width: 0),
+            (groupValue == 2)
+                ? Text("$groupValue")
+                : const SizedBox(height: 0, width: 0)
           ],
         ),
       ),
     );
   }
 
+  //Used to select a files if permission granted
   Future<void> checkPermission() async {
     await permissions.storagePermission();
     if (permissions.storageStatus.toString().contains('granted')) {

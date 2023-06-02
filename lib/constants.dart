@@ -8,3 +8,14 @@ final Map<String, WidgetBuilder> routes = {
   '/members': (context) => const Members(),
   '/attendance': (context) => const Attendance(),
 };
+
+//TODO: change to data from excel
+List<int> sn = [1, 2, 3, 4];
+List<String> names = [
+  "Ali Hussain Arafat",
+  "Ahmed",
+  "Mohammed Abdullah almohammed",
+  "Hadi"
+];
+List<String> phone = ["1234567890", "8888888888", "1234567890", "1234567890"];
+List<bool> isAttend = [true, true, false, true];
