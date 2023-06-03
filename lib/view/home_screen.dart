@@ -16,9 +16,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   UserPermissions permissions = UserPermissions();
   FileOperations excelFiles = ExcelFiles();
+
   int? groupValue = 0;
   double textSize = 18;
-
+  var fileContent;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +57,13 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       appBar: AppBar(
         title: const Text("Home"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                excelFiles.readContent(excelFiles.selectFile());
+              },
+              icon: const Icon(Icons.file_copy))
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -96,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ? const Attendance()
                 : const SizedBox(height: 0, width: 0),
             (groupValue == 1)
-                ? const Members()
+                ? Members(content: excelFiles.content)
                 : const SizedBox(height: 0, width: 0),
             (groupValue == 2)
                 ? Text("$groupValue")

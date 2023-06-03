@@ -3,47 +3,47 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 class Members extends StatelessWidget {
-  const Members({Key? key}) : super(key: key);
+  final content;
+  const Members({Key? key, this.content}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Search(),
+        const Search(),
         Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Table(
-              border: TableBorder.all(color: Colors.transparent),
-              columnWidths: const {
-                0: FixedColumnWidth(30),
-                1: FixedColumnWidth(200),
-                2: FixedColumnWidth(90),
-                3: FixedColumnWidth(30),
-              },
+              border: TableBorder.all(color: Colors.black),
+              // columnWidths: const {
+              //   0: FixedColumnWidth(30),
+              //   1: FixedColumnWidth(200),
+              //   2: FixedColumnWidth(90),
+              //   3: FixedColumnWidth(30),
+              // },
               children: [
-                const TableRow(
-                  children: [
-                    Center(child: Text("s.n")),
-                    Center(child: Text("names")),
-                    Center(child: Text("phone")),
-                    Text(
-                      "",
-                    )
-                  ],
-                ),
-                for (int i = 0; i < names.length; i++)
-                  TableRow(children: [
-                    Center(child: Text("${sn[i]}")),
-                    Text("${names[i]}"),
-                    Text(phone[i]),
-                    Center(
-                        child: Icon((isAttend[i]) ? Icons.check : Icons.close)),
-                  ])
+                ...List.generate(content.length, (index) {
+                  return TableRow(children: [
+                    for (int i = 0; i < getColumnData(content[0]).length; i++)
+                      Text(getColumnData(content[index])[i]),
+                  ]);
+                }),
               ],
             ))
       ],
     );
   }
+}
+
+// get columns
+List<String> getColumnData(String column) {
+  List<String> headerList = [];
+
+  String col = column;
+  String temp = col.substring(1, col.length - 1);
+  headerList = temp.split(",");
+
+  return headerList;
 }
 
 class Search extends StatefulWidget {
