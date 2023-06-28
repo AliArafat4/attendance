@@ -101,14 +101,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             (groupValue == 0)
-                ? const Attendance()
+                ? Attendance(excelFile: excelFiles)
                 : const SizedBox(height: 0, width: 0),
             (groupValue == 1)
-                ? Members(content: excelFiles.content)
+                ? Members(excelFile: excelFiles)
                 : const SizedBox(height: 0, width: 0),
-            (groupValue == 2)
-                ? Text("$groupValue")
-                : const SizedBox(height: 0, width: 0)
+            (groupValue == 2) ? Text("$groupValue") : const SizedBox(height: 0, width: 0)
           ],
         ),
       ),

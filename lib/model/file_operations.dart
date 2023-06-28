@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:excel/excel.dart';
 import 'package:file_picker/file_picker.dart';
 
+import '../constants.dart';
+
 abstract class FileOperations {
   Future selectFile();
   Future readContent(var filePath);
-  Future<File> writeContent(var content);
+  Future<File> updateContent(var content);
   get content;
 }
 
@@ -64,7 +66,7 @@ class ExcelFiles implements FileOperations {
   get content => _fileContent;
 
   @override
-  Future<File> writeContent(content) {
+  Future<File> updateContent(content) {
     // TODO: implement writeContent
     throw UnimplementedError();
   }
@@ -76,4 +78,26 @@ class ExcelFiles implements FileOperations {
 //   return file.writeAsString('$content');
 // }
 
+  // get columns
+  List<String> getColumnData(String column) {
+    List<String> headerList = [];
+
+    String col = column;
+    String temp = col.substring(1, col.length - 1);
+    headerList = temp.split(",");
+
+    return headerList;
+  }
+
+  List searchNames(String query) {
+    //TODO: take data from excel file instead of [names] const
+    final suggestions = names.where((n) {
+      final y = n.toLowerCase();
+
+      final input = query.toLowerCase();
+      return y.contains(input);
+    }).toList();
+
+    return suggestions;
+  }
 }
