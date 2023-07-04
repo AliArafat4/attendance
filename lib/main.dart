@@ -1,4 +1,5 @@
-import 'package:attendance/view/home_screen.dart';
+import 'package:attendance/view/login.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.teal,
       ),
-      home: const HomeScreen(),
+      home: const LoginScreen(),
       //  initialRoute: ,
       routes: routes,
     );

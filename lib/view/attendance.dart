@@ -61,11 +61,42 @@ class _AttendanceState extends State<Attendance> {
         ),
         (index == 0 || index >= widget.excelFile.content.length)
             ? const SizedBox()
-            : Text("${widget.excelFile.content[index]}"),
+            : //Text("${widget.excelFile.content[index]}"),
+            Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Table(
+                  border: TableBorder.all(color: Colors.black),
+                  // columnWidths: const {
+                  //   0: FixedColumnWidth(30),
+                  //   1: FixedColumnWidth(200),
+                  //   2: FixedColumnWidth(90),
+                  //   3: FixedColumnWidth(30),
+                  // },
+                  children: [
+                    TableRow(children: [
+                      for (int i = 0;
+                          i < widget.excelFile.getColumnData(widget.excelFile.content[0]).length;
+                          i++)
+                        Text(widget.excelFile.getColumnData(widget.excelFile.content[0])[i]),
+                    ]),
+                    TableRow(children: [
+                      for (int i = 0;
+                          i < widget.excelFile.getColumnData(widget.excelFile.content[0]).length;
+                          i++)
+                        Text(widget.excelFile.getColumnData(widget.excelFile.content[index])[i]),
+                    ])
+                  ],
+                ),
+              ),
         ElevatedButton(
             child: const Text("Submit"),
             onPressed: () {
               //TODO: Dialog ensure name
+              if (widget.excelFile.content.isEmpty) {
+                print("Load a file");
+              } else if (index != 0) {
+                print(widget.excelFile.content[index]);
+              }
             })
       ],
     );

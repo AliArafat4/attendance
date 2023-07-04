@@ -59,8 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text("Home"),
         actions: [
           IconButton(
-              onPressed: () {
-                excelFiles.readContent(excelFiles.selectFile());
+              onPressed: () async {
+                await excelFiles.readContent(excelFiles.selectFile());
+                setState(() {});
               },
               icon: const Icon(Icons.file_copy))
         ],

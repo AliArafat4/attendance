@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:excel/excel.dart';
 import 'package:file_picker/file_picker.dart';
 
-import '../constants.dart';
-
 abstract class FileOperations {
   Future selectFile();
   Future readContent(var filePath);
@@ -90,14 +88,12 @@ class ExcelFiles implements FileOperations {
   }
 
   List searchNames(String query) {
-    //TODO: take data from excel file instead of [names] const
-    final suggestions = names.where((n) {
-      final y = n.toLowerCase();
-
-      final input = query.toLowerCase();
-      return y.contains(input);
-    }).toList();
-
+    List<String> suggestions = [];
+    for (int i = 1; i < content.length; i++) {
+      if (content[i].toString().toLowerCase().contains(query.toLowerCase())) {
+        suggestions.add(content[i]);
+      }
+    }
     return suggestions;
   }
 }
