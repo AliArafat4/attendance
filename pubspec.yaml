@@ -44,6 +44,7 @@ dependencies:
   firebase_auth: ^4.6.1
   cloud_firestore: ^4.7.1
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -56,3 +57,7 @@ flutter:
   assets:
       - assets/images/
   #   - images/a_dot_ham.jpeg
+  fonts:
+    - family: MyFlutterApp
+      fonts:
+        - asset:  assets/fonts/MyFlutterApp.ttf
