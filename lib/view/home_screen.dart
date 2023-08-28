@@ -1,4 +1,6 @@
+import 'package:attendance/model/firebase.dart';
 import 'package:attendance/view/attendance.dart';
+import 'package:attendance/view/login.dart';
 import 'package:attendance/view/members.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +54,19 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
             const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                  onPressed: () {
+                    logout();
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ));
+                  },
+                  child: const Text("Logout")),
+            )
           ],
         ),
       ),

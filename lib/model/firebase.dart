@@ -2,7 +2,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 final _auth = FirebaseAuth.instance;
-final user = FirebaseFirestore.instance.collection('users');
+// final user = FirebaseFirestore.instance.collection('users');
+
+login(String email, password) async {
+  try {
+    final user = await _auth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    return "True";
+  } catch (e) {
+    return "False";
+  }
+}
+
+logout() {
+  _auth.signOut();
+}
 
 signup(String name, email, password) async {
   // context.loaderOverlay.show();
@@ -39,26 +55,26 @@ signup(String name, email, password) async {
     // );
   }
 }
-
-Future deleteAccount({required String password, required String email}) async {
-  try {
-    final reAuthUser = await _auth.currentUser?.reauthenticateWithCredential(
-      EmailAuthProvider.credential(
-        email: email.trim(),
-        password: password.trim(),
-      ),
-    );
-
-    user.doc(_auth.currentUser?.email).update({'disabled': true});
-    await reAuthUser?.user?.delete();
-
-    return "correct";
-  } on FirebaseAuthException catch (e) {
-    print("Failed with error code : ${e.code}");
-    print(e.message);
-    return "wrong";
-  }
-}
+//
+// Future deleteAccount({required String password, required String email}) async {
+//   try {
+//     final reAuthUser = await _auth.currentUser?.reauthenticateWithCredential(
+//       EmailAuthProvider.credential(
+//         email: email.trim(),
+//         password: password.trim(),
+//       ),
+//     );
+//
+//     user.doc(_auth.currentUser?.email).update({'disabled': true});
+//     await reAuthUser?.user?.delete();
+//
+//     return "correct";
+//   } on FirebaseAuthException catch (e) {
+//     print("Failed with error code : ${e.code}");
+//     print(e.message);
+//     return "wrong";
+//   }
+// }
 
 Future resetPassword({required String currentPassword, required String newPassword}) async {
   try {
