@@ -1,11 +1,13 @@
-import 'package:attendance/model/firebase.dart';
+import 'package:attendance/model/firebase_auth.dart';
 import 'package:attendance/view/attendance.dart';
 import 'package:attendance/view/login.dart';
 import 'package:attendance/view/members.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../model/file_operations.dart';
+import '../model/firebase_storage.dart';
 import '../user_permissions.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -29,14 +31,14 @@ class _HomeScreenState extends State<HomeScreen> {
         child: ListView(
           children: [
             SizedBox(
-              height: 100,
+              height: 70,
               child: DrawerHeader(
                 child: Column(
                   children: [
                     Flexible(
                       child: Text(
-                        "\t\t_auth.currentUser?.displayName}",
-                        style: TextStyle(fontSize: 20, color: Colors.red[700]),
+                        "Hello ${FirebaseAuth.instance.currentUser?.displayName}",
+                        style: TextStyle(fontSize: 20, color: Colors.teal[700]),
                       ),
                     ),
                   ],
@@ -76,6 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
               onPressed: () async {
                 await excelFiles.readContent(excelFiles.selectFile());
+                uploadFile(excelFiles.path);
                 setState(() {});
               },
               icon: const Icon(Icons.file_copy))

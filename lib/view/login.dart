@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:attendance/model/firebase.dart';
+import 'package:attendance/model/firebase_auth.dart';
 import 'package:attendance/view/home_screen.dart';
 import 'package:flutter/material.dart';
 import '../custom_icons/my_flutter_app_icons.dart';

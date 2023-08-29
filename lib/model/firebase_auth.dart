@@ -55,7 +55,7 @@ signup(String name, email, password) async {
     // );
   }
 }
-//
+
 // Future deleteAccount({required String password, required String email}) async {
 //   try {
 //     final reAuthUser = await _auth.currentUser?.reauthenticateWithCredential(

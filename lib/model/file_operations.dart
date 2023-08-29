@@ -8,12 +8,13 @@ abstract class FileOperations {
   Future readContent(var filePath);
   Future<File> updateContent(var content);
   get content;
+  get path;
 }
 
 class ExcelFiles implements FileOperations {
   //TODO: add constructor for the excel data
   List<String> _fileContent = [];
-
+  String _selectedFilePath = '';
   @override
   Future selectFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -29,6 +30,7 @@ class ExcelFiles implements FileOperations {
   Future readContent(var filePath) async {
     try {
       final file = await filePath;
+      _selectedFilePath = file.toString();
 
       // Read the file
       var bytes = file.readAsBytesSync();
@@ -62,6 +64,9 @@ class ExcelFiles implements FileOperations {
   //get file content
   @override
   get content => _fileContent;
+
+  @override
+  get path => _selectedFilePath;
 
   @override
   Future<File> updateContent(content) {
