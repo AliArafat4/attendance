@@ -4,7 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 final storageRef = FirebaseStorage.instance.ref();
 final userName = FirebaseAuth.instance.currentUser!.displayName;
-
+var _privateFiles = [];
 Future uploadFile(String filePath) async {
   try {
     //clearing the path's format
@@ -26,13 +26,26 @@ Future uploadFile(String filePath) async {
   }
 }
 
-Future getFiles() async {
-  ListResult storageFiles = await storageRef.root.child("$userName").listAll();
-  for (var item in storageFiles.items) {
-    print(item);
-  }
+//For All Files
+Future getPrivateFiles({name}) async {
+  ListResult storageFiles = await storageRef.root.child("$name").listAll();
+
+  _privateFiles = storageFiles.items;
+
   return storageFiles;
 }
+
+//FIX Name for "child()"
+// Future getPublicFiles(String folderName) async {
+//   //ListResult storageFiles = await storageRef.root.child("public").listAll();
+//
+//   var storageFiles = await storageRef.root.child('/').listAll();
+//   print(storageFiles.items);
+//   // for (var item in storageFiles.items) {
+//   //   print(item);
+//   // }
+//   return storageFiles;
+// }
 
 Future downloadFile(String fileName) async {
   //TODO: FIX DOWNLOAD
@@ -40,6 +53,7 @@ Future downloadFile(String fileName) async {
   final data = await pathReference.getData();
 }
 
+get privateFiles => _privateFiles;
 // final task = mountainsRef.putFile(largeFile);
 //
 // // Pause the upload.
