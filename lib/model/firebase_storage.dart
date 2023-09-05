@@ -5,7 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 final storageRef = FirebaseStorage.instance.ref();
 final userName = FirebaseAuth.instance.currentUser!.displayName;
 var _privateFiles = [];
-Future uploadFile(String filePath) async {
+Future uploadFile(String filePath, folderName) async {
   try {
     //clearing the path's format
     String clearedPath = filePath.split(": ")[1];
@@ -16,7 +16,7 @@ Future uploadFile(String filePath) async {
     String fileName = filePathSplit[filePathSplit.length - 1];
 
     //set the reference in Firestore storage
-    final fileRef = storageRef.child("$userName/$fileName");
+    final fileRef = storageRef.child("$folderName/$fileName");
 
     //select & upload the file into Firestore storage
     File file = File(clearedPath);

@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:attendance/model/firebase_auth.dart';
 import 'package:attendance/view/home_screen.dart';
 import 'package:flutter/material.dart';
-import '../custom_icons/my_flutter_app_icons.dart';
+import '../widgets/email_textfield.dart';
+import '../widgets/password_textfield.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -52,79 +53,6 @@ class _LoginScreenState extends State<LoginScreen> {
           },
           child: const Text("login")),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
-  }
-}
-
-class EmailTextField extends StatelessWidget {
-  final TextEditingController emailController;
-  const EmailTextField({
-    Key? key,
-    required this.emailController,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: TextFormField(
-        controller: emailController,
-        decoration: const InputDecoration(
-            prefixIcon: Icon(Icons.email_outlined),
-            hintText: "example@gmail.com",
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            )),
-      ),
-    );
-  }
-}
-
-class PasswordTextField extends StatefulWidget {
-  final TextEditingController passwordController;
-  const PasswordTextField({
-    Key? key,
-    required this.passwordController,
-  }) : super(key: key);
-
-  @override
-  State<PasswordTextField> createState() => _PasswordTextFieldState();
-}
-
-class _PasswordTextFieldState extends State<PasswordTextField> {
-  @override
-  void dispose() {
-    widget.passwordController.dispose();
-    super.dispose();
-  }
-
-  bool toggle = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: TextFormField(
-        controller: widget.passwordController,
-        obscureText: toggle,
-        decoration: InputDecoration(
-          prefixIcon: GestureDetector(
-            child: Icon(
-              (toggle) ? (MyFlutterApp.eye_slash) : (MyFlutterApp.eye),
-              size: 20,
-            ),
-            onTap: () {
-              setState(() {
-                toggle = !toggle;
-              });
-            },
-          ),
-          hintText: "password",
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-          ),
-        ),
-      ),
     );
   }
 }

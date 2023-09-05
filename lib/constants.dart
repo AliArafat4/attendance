@@ -3,6 +3,7 @@ import 'package:attendance/view/attendance.dart';
 import 'package:attendance/view/home_screen.dart';
 import 'package:attendance/view/members.dart';
 import 'package:attendance/view/selectFile_screen.dart';
+import 'package:attendance/view/uploadFile_screen.dart';
 import 'package:flutter/material.dart';
 
 final Map<String, WidgetBuilder> routes = {
@@ -11,4 +12,5 @@ final Map<String, WidgetBuilder> routes = {
   '/attendance': (context) => const Attendance(),
   '/login': (context) => const LoginScreen(),
   '/selectFile': (context) => const SelectFileScreen(),
+  '/UploadFile': (context) => const UploadFileScreen(),
 };

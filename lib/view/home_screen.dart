@@ -2,6 +2,7 @@ import 'package:attendance/model/firebase_auth.dart';
 import 'package:attendance/view/attendance.dart';
 import 'package:attendance/view/login.dart';
 import 'package:attendance/view/members.dart';
+import 'package:attendance/view/uploadFile_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -34,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     getFiles = getPrivateFiles();
-    getFoldersNames = getFolders();
+    getFoldersNames = getFoldersSnapshots();
     super.initState();
   }
 
@@ -43,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       onDrawerChanged: (isOpened) {
         setState(() {
-          flag = isOpened;
+          flag = true;
         });
       },
       drawer: SafeArea(
@@ -160,9 +161,15 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
               onPressed: () async {
-                await excelFiles.readContent(excelFiles.selectFile());
-                uploadFile(excelFiles.path);
-                setState(() {});
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          UploadFileScreen(excelFile: excelFiles, tags: getFoldersNames),
+                    ));
+                // await excelFiles.readContent(excelFiles.selectFile());
+                // uploadFile(excelFiles.path);
+                // setState(() {});
               },
               icon: const Icon(Icons.file_copy))
         ],
