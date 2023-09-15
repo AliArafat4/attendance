@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:dio/dio.dart';
 
 final storageRef = FirebaseStorage.instance.ref();
 final userName = FirebaseAuth.instance.currentUser!.displayName;
@@ -47,10 +49,18 @@ Future getPrivateFiles({name}) async {
 //   return storageFiles;
 // }
 
-Future downloadFile(String fileName) async {
-  //TODO: FIX DOWNLOAD
-  final pathReference = storageRef.child("$userName/$fileName");
-  final data = await pathReference.getData();
+Future downloadFile(String folder, fileName, excelFiles) async {
+  final pathReference = storageRef.child("$folder/$fileName");
+  final url = await pathReference.getDownloadURL();
+
+  final tmpDir = await getTemporaryDirectory();
+  var path = "${tmpDir.path}/${pathReference.fullPath}";
+
+  var w = await Dio().download(url, path);
+  //print(w.statusMessage);
+  File file = File(path);
+
+  final load = await excelFiles.readContent(file);
 }
 
 get privateFiles => _privateFiles;

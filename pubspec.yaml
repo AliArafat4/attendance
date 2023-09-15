@@ -46,6 +46,8 @@ dependencies:
   firebase_storage: ^11.2.6
   path_provider: ^2.1.0
   riverpod:
+  dio: ^5.3.2
+
 
 
 dev_dependencies:

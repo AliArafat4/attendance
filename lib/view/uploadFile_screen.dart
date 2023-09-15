@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../model/firebase_storage.dart';
 import '../model/firestore.dart';
 
@@ -37,6 +36,7 @@ class _UploadFileScreenState extends State<UploadFileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text("Upload Files"),
         actions: [
           Switch(
               activeColor: Colors.pink,
@@ -64,7 +64,7 @@ class _UploadFileScreenState extends State<UploadFileScreen> {
                             controller: _folderNameController,
                             decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.file_copy_outlined),
-                                hintText: "Enter a File Name",
+                                hintText: "Enter a Folder Name",
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.all(Radius.circular(10)),
                                 )),
@@ -119,17 +119,10 @@ class _UploadFileScreenState extends State<UploadFileScreen> {
             const SizedBox(height: 40),
             UploadButton(
                 excelFile: widget.excelFile,
-                folderNameController: _folderNameController.text,
+                folderNameController: _folderNameController,
                 folderNameSelcetedItem: selectedItem),
             const SizedBox(height: 20),
             const Text(" Upload a File"),
-            // ElevatedButton(
-            //     onPressed: () async {
-            //       var x = await getFoldersNames();
-            //
-            //       print(x.runtimeType);
-            //     },
-            //     child: Text("test"))
           ],
         ),
       ),
@@ -159,38 +152,35 @@ class UploadButton extends StatelessWidget {
             Icons.file_upload_outlined,
           ),
           onPressed: () async {
-            final check = await checkFolderName(folderNameController, folderNameSelcetedItem);
-
-            print(check);
-            if (check.contains("Empty")) {
-              showDialog(
-                useSafeArea: true,
-                context: context,
-                builder: (context) {
-                  return Text("data");
-                },
-              );
-            } else {
-              await excelFile.readContent(excelFile.selectFile());
-              final name = checkFolderName(folderNameController, folderNameSelcetedItem);
-              putFoldersNames(name);
-              uploadFile(excelFile.path, name);
-            }
-            // setState(() {});
+            checkFolderName(context);
           },
         ),
       ),
     );
   }
 
-  //TODO: FIX CHECK
-  String checkFolderName(String textFieldController, List selectedItem) {
-    if (textFieldController.isNotEmpty && selectedItem.isEmpty) {
-      return textFieldController;
-    } else if (textFieldController.isEmpty && selectedItem.isNotEmpty) {
-      return selectedItem[0];
+  Future<void> checkFolderName(context) async {
+    if (!exist) {
+      if (folderNameSelcetedItem.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(behavior: SnackBarBehavior.floating, content: Text('Select a Folder')));
+      } else if (folderNameSelcetedItem.toString().contains("[]")) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            behavior: SnackBarBehavior.floating, content: Text('Create a New Folder')));
+      } else {
+        await excelFile.readContent(excelFile.selectFile());
+        uploadFile(excelFile.path, folderNameSelcetedItem[0].toString().trim());
+      }
     } else {
-      return "Empty";
+      if (folderNameController.text.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            behavior: SnackBarBehavior.floating,
+            content: Text('Enter a Name for new Folder to Create')));
+      } else {
+        await excelFile.readContent(excelFile.selectFile());
+        putFoldersNames(folderNameController.text.trim());
+        uploadFile(excelFile.path, folderNameController.text.trim());
+      }
     }
   }
 }

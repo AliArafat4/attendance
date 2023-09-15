@@ -22,11 +22,7 @@ Future putFoldersNames(String name) async {
       .get()
       .then((querySnapshot) => {docID = querySnapshot.docs[0].id});
 
-  final y = await firestore.collection("folders").doc(docID).snapshots().contains(name);
-
-  if (y) {
-    await firestore.collection("folders").doc(docID).update({
-      'folders': FieldValue.arrayUnion([name])
-    });
-  }
+  await firestore.collection("folders").doc(docID).update({
+    'folders': FieldValue.arrayUnion([name])
+  });
 }

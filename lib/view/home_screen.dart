@@ -133,7 +133,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 return const CircularProgressIndicator();
                               }
                             })
-                        : LoadFiles(getFiles: getFiles, folderName: selectedFolderName),
+                        : LoadFiles(
+                            getFiles: getFiles,
+                            folderName: selectedFolderName,
+                            excelFile: excelFiles),
                     //LoadFiles(getFiles: getFiles),
                   ],
                 ),
@@ -245,11 +248,12 @@ class LoadFiles extends StatelessWidget {
     Key? key,
     required this.getFiles,
     required this.folderName,
+    required this.excelFile,
   }) : super(key: key);
 
   final Future getFiles;
   final String folderName;
-
+  final excelFile;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -271,8 +275,9 @@ class LoadFiles extends StatelessWidget {
                           style: const TextStyle(fontSize: 18),
                         ),
                         onTap: () {
-                          // Navigator.pushReplacement(
-                          //     context, MaterialPageRoute(builder: (context) => browse()));
+                          // Download the file and show it in screen
+                          downloadFile(folderName, file.name, excelFile);
+                          Navigator.pop(context);
                         },
                       ),
                       Container(
